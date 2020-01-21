@@ -1,5 +1,5 @@
 const express = require('express');
-const graphqlHttp = require('express-graphql')
+const graphqlHTTP = require('express-graphql')
 const mongoose = require('mongoose');
 const schema = require('./schema/schema')
 
@@ -16,7 +16,7 @@ db.once('open', () => {
 })
 
 // midllware
-app.use('/graphql', graphqlHttp({
+app.use('/graphql', graphqlHTTP({
   schema,
   graphiql: true
 }))
