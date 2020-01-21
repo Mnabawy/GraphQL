@@ -1,13 +1,31 @@
-import React, { Component } from 'react'
+import React, { Component } from "react"
+import { graphql } from "react-apollo"
+import {getBooksQuery} from '../queries/queries'
 
-export default class BookList extends Component {
+
+class BookList extends Component {
+  displayBooks() {
+    const data = this.props.data
+    if (data.loading) {
+      return <h1>loading data</h1>
+    } else {
+      return data.books.map(book => {
+        return <li key={book.id}>{book.name}</li>
+      })
+    }
+  }
+
+  
+
   render() {
+  console.log(this.props.data.books);
+  
     return (
       <div>
-        <ul>
-          <li>Book List</li>
-        </ul>
+        <ul>{this.displayBooks()}</ul>
       </div>
     )
   }
 }
+
+export default graphql(getBooksQuery)(BookList)
