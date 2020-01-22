@@ -1,11 +1,12 @@
 import React, { Component } from "react"
 import { graphql } from "react-apollo"
-import {getBooksQuery} from '../queries/queries'
+import { getBooksQuery } from '../queries/queries'
+import * as compose from "lodash.flowright"
 
 
 class BookList extends Component {
   displayBooks() {
-    const data = this.props.data
+    const data = this.props.getBooksQuery
     if (data.loading) {
       return <h1>loading data</h1>
     } else {
@@ -15,11 +16,11 @@ class BookList extends Component {
     }
   }
 
-  
+
 
   render() {
-  console.log(this.props.data.books);
-  
+    console.log(this.props);
+
     return (
       <div>
         <ul>{this.displayBooks()}</ul>
@@ -28,4 +29,6 @@ class BookList extends Component {
   }
 }
 
-export default graphql(getBooksQuery)(BookList)
+export default compose(
+  graphql(getBooksQuery, { name: "getBooksQuery" })
+)(BookList)
